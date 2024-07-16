@@ -9,15 +9,49 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract MyNFT is ERC721, ERC721URIStorage, Ownable {
     uint256 private _nextTokenId;
 
+    // this should be a list of owners, with 0 being the first and higher
+    // numbers being more recent owners
+    address[] public listOfOwners;
+
+
+    function getOwnerByIndex(uint256 i) public view returns (uint256) {
+      return listOfOwners[i];
+    }
+
+    function getAllOwners() public view returns (address[] memory) {
+      return listOfOwners;
+    }
+
+    function addOwner(address o) private view {
+      listOfOwners.push(o);
+    }
+
     constructor(
         address initialOwner
     ) ERC721("MyNFT", "NFT") Ownable(initialOwner) {}
 
+    // https://ethereum.stackexchange.com/questions/115280
     function safeMint(address to, string memory uri) public onlyOwner {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
+        addOwner(to);
     }
+
+    public function safeTransferFromAndRecordOwner(address to, address from, uint256 tokenId) {
+      safeTransferFrom(to, from, tokenId);
+      addOwner(to);
+    }
+
+
+    /*
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;
+    */
+
+    /*
+    This function modifies safeTransferFrom to also write to an array of
+
+    */
 
     // The following functions are overrides required by Solidity.
 

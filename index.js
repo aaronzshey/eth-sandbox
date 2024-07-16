@@ -14,6 +14,7 @@ async function main() {
     9999999999999999999999999999999999999999999999999999999,
   );
 
+
   await mine();
   console.log("mined");
 
@@ -40,8 +41,20 @@ async function main() {
     impersonatedSigner.address,
     "ipfs://deadlink",
   );
+
   await txn.wait();
-  console.log(txn);
+  console.log(`Mint successful: ${txn.hash}`);
+
+  //we're going to use the factory address?
+  //https://stackoverflow.com/questions/71894376
+  //token id has to be saved somehow from the factory
+
+  myNFTContract.safeTransferFromAndRecordOwner("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", myAddress, 0);
+
+  console.log(myNFTContract.getAllOwners());
+
+
+
 
   await mine();
   //console.log(factoryAddress);
@@ -49,6 +62,8 @@ async function main() {
     "0x06b0ED5338e36623b859081B0692F7dE33aF67E5",
     65170898460000000,
   );
+
+
 
   await mine();
 }
