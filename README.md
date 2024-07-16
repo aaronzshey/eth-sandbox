@@ -1,13 +1,11 @@
-# Sample Hardhat Project
+# eth-sandbox
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
-Try running some of the following tasks:
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
 npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
+npx hardhat run index.js --network localhost
 ```
+
+todo:
+[ ] write contract with field for ownership to track owners w/o chain trace
+[ ] implement database to show spawn of contractfactory
