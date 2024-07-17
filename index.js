@@ -49,9 +49,14 @@ async function main() {
   //https://stackoverflow.com/questions/71894376
   //token id has to be saved somehow from the factory
 
-  myNFTContract.safeTransferFromAndRecordOwner("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", myAddress, 0);
+  //@params: from, to, id
+  myNFTContract.safeTransferAndRecordOwner(myAddress, "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", 0);
 
-  console.log(myNFTContract.getAllOwners());
+  const owners = await myNFTContract.getAllOwners();
+  console.log(owners);
+
+  
+  console.log(await myNFTContract.ownerOf(0))
 
 
 

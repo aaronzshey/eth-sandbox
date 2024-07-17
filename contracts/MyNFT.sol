@@ -14,7 +14,7 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
     address[] public listOfOwners;
 
 
-    function getOwnerByIndex(uint256 i) public view returns (uint256) {
+    function getOwnerByIndex(uint256 i) public view returns (address) {
       return listOfOwners[i];
     }
 
@@ -22,7 +22,7 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
       return listOfOwners;
     }
 
-    function addOwner(address o) private view {
+    function addOwner(address o) public {
       listOfOwners.push(o);
     }
 
@@ -38,8 +38,8 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
         addOwner(to);
     }
 
-    public function safeTransferFromAndRecordOwner(address to, address from, uint256 tokenId) {
-      safeTransferFrom(to, from, tokenId);
+    function safeTransferAndRecordOwner(address from, address to, uint256 tokenId) public {
+      safeTransferFrom(from, to, tokenId);
       addOwner(to);
     }
 
