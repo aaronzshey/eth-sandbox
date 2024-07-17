@@ -55,7 +55,7 @@ async function main() {
   const owners = await myNFTContract.getAllOwners();
   console.log(owners);
 
-  
+
   console.log(await myNFTContract.ownerOf(0))
 
 

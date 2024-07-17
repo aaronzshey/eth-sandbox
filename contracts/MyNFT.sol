@@ -9,21 +9,26 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract MyNFT is ERC721, ERC721URIStorage, Ownable {
     uint256 private _nextTokenId;
 
-    // this should be a list of owners, with 0 being the first and higher
-    // numbers being more recent owners
-    address[] public listOfOwners;
+
+    uint256 private _numOfOwners;
+
+    string public listOfOwners;
 
 
-    function getOwnerByIndex(uint256 i) public view returns (address) {
-      return listOfOwners[i];
+    function incNumOfOwners() private {
+      _numOfOwners++;
     }
 
-    function getAllOwners() public view returns (address[] memory) {
+    function getNumOfOwners() public view returns (uint256) {
+      return _numOfOwners;
+    }
+
+    function setListOfOwners(string memory uri) public {
+      listOfOwners = uri;
+    }
+
+    function getListOfOwners() public view returns (string memory) {
       return listOfOwners;
-    }
-
-    function addOwner(address o) public {
-      listOfOwners.push(o);
     }
 
     constructor(
@@ -35,12 +40,12 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-        addOwner(to);
+        setListOfOwners(uri);
     }
 
-    function safeTransferAndRecordOwner(address from, address to, uint256 tokenId) public {
+    function safeTransferAndRecordOwner(address from, address to, uint256 tokenId, string memory uri) public {
       safeTransferFrom(from, to, tokenId);
-      addOwner(to);
+      setListOfOwners(uri);
     }
 
 
