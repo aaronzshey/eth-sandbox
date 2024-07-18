@@ -14,11 +14,6 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
 
     string public listOfOwners;
 
-
-    function incNumOfOwners() private {
-      _numOfOwners++;
-    }
-
     function getNumOfOwners() public view returns (uint256) {
       return _numOfOwners;
     }
@@ -36,16 +31,17 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
     ) ERC721("MyNFT", "NFT") Ownable(initialOwner) {}
 
     // https://ethereum.stackexchange.com/questions/115280
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to, string memory uri, string memory owner) public onlyOwner {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-        setListOfOwners(uri);
+        setListOfOwners(owner);
     }
 
-    function safeTransferAndRecordOwner(address from, address to, uint256 tokenId, string memory uri) public {
+    function safeTransferAndRecordOwner(address from, address to, uint256 tokenId, string memory ownerListInput) public {
       safeTransferFrom(from, to, tokenId);
-      setListOfOwners(uri);
+      setListOfOwners(ownerListInput);
+      _numOfOwners++;
     }
 
 
