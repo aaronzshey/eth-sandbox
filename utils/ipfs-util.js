@@ -8,6 +8,30 @@ const helia = await createHelia();
 const j = json(helia);
 
 async function main() {
+  //basic example, truncated for readability;
+
+  /*
+  await pinata.pinJSONToIPFS({
+    owners: ["0x00"],
+  });
+*/
+
+  const cidFromNft = "Qmc7H3puk2Atxkhk3L3L3HEuSVKsioLemJm8vavy9Lvqjd";
+
+  const response = await fetch(`${process.env.PINATA_GATEWAY}${cidFromNft}`);
+
+  const body = await response.json();
+
+  console.log(body);
+
+  body.owners.push("0x02");
+  console.log(body);
+
+  await pinata.pinJSONToIPFS(body);
+
+  pinata.unpin(cidFromNft);
+
+  /*
   const myImmutableAddress = await j.add({ hello: "world" });
 
   console.log(await j.get(myImmutableAddress));
@@ -17,6 +41,7 @@ async function main() {
   console.log("unpinning: ", response.IpfsHash);
   await pinata.unpin(response.IpfsHash);
   console.log("unpinned");
+  */
 }
 
 main()

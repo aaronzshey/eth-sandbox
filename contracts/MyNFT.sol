@@ -10,7 +10,7 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
     uint256 private _nextTokenId;
 
 
-    uint256 private _numOfOwners;
+    uint256 private _numOfOwners =  1;
 
     string public listOfOwners;
 
