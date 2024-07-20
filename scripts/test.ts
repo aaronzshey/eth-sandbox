@@ -8,10 +8,7 @@ import deployContract from "../utils/deploy";
 import mintNFT from "../utils/mint";
 
 async function main() {
-  await setBalance(
-    "0x06b0ED5338e36623b859081B0692F7dE33aF67E5",
-    9999999999999999999999999999999999999999999999999999999
-  );
+  await setBalance("0x06b0ED5338e36623b859081B0692F7dE33aF67E5", 2 ^ 53);
   const factoryAddress: string = await deployContract();
   const nft: Contract = await mintNFT(factoryAddress);
 

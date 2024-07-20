@@ -7,14 +7,9 @@ import * as contract from "../artifacts/contracts/MyNFT.sol/MyNFT.json";
 async function main() {
   const myAddress = "0x06b0ED5338e36623b859081B0692F7dE33aF67E5";
 
-  await setBalance(
-    "0x06b0ED5338e36623b859081B0692F7dE33aF67E5",
-    9999999999999999999999999999999999999999999999999999999
-  );
+  await setBalance("0x06b0ED5338e36623b859081B0692F7dE33aF67E5", 2 ^ 53);
 
-  await mine();
-  console.log("mined");
-
+  //@ts-ignore
   const impersonatedSigner = await hardhat.ethers.getImpersonatedSigner(
     myAddress
   );

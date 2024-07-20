@@ -14,6 +14,7 @@ todo:
 
 - if the length of json owners array doesn't match the onchain length of owners,
   perform a block search to find the owners and change the ipfs-stored data
+- additionally, implement Qm-prefixed ipfs type checking - if the ipfs url is invalid or doesn't obey the type guards, rebuild the ownership array
 
 [ ] ipfs code done: implement for minting
 

@@ -44,16 +44,6 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
       _numOfOwners++;
     }
 
-
-    /*
-    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;
-    */
-
-    /*
-    This function modifies safeTransferFrom to also write to an array of
-
-    */
-
     // The following functions are overrides required by Solidity.
 
     function tokenURI(
