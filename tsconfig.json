@@ -1,10 +1,16 @@
 {
-  "exclude": ["dist", "node_modules"],
-  "include": ["./test", "./src", "./scripts"],
-  "files": ["./hardhat.config.ts"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "./hardhat.config.cjs",
+    "./hardhat.config.js"
+  ],
+  "include": ["./test", "./src", "./scripts", "./utils"],
+  "files": ["./hardhat.config.cjs"],
   "compilerOptions": {
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
 
     /* Visit https://aka.ms/tsconfig to read more about this file */
 

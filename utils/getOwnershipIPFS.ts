@@ -2,7 +2,18 @@ import "dotenv/config";
 import pinataSDK from "@pinata/sdk";
 const pinata = new pinataSDK({ pinataJWTKey: process.env.PINATA_KEY });
 
-export default async function refreshOwnershipIPFS(
+type ownersJSON = {
+  owners: string[];
+};
+
+export async function initiateOwnership(firstOwner: string): Promise<string> {
+  const ownersJSON: ownersJSON = { owners: [] };
+  ownersJSON.owners.push(firstOwner);
+  const pinTransaction = await pinata.pinJSONToIPFS(ownersJSON);
+  return pinTransaction.IpfsHash;
+}
+
+export async function refreshOwnershipIPFS(
   uri: string,
   newOwner: string
 ): Promise<string> {
@@ -11,7 +22,7 @@ export default async function refreshOwnershipIPFS(
   const ownersRaw = await fetch(`${process.env.PINATA_GATEWAY}${uri}`);
 
   //convert the ReadableStream output to JSON
-  const ownersJSON = await ownersRaw.json();
+  const ownersJSON: ownersJSON = await ownersRaw.json();
 
   //add the new owner to the object
   ownersJSON.owners.push(newOwner);
