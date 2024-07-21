@@ -38,8 +38,8 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
         setListOfOwners(owner);
     }
 
-    function safeTransferAndRecordOwner(address from, address to, uint256 tokenId, string memory ownerListInput) public {
-      safeTransferFrom(from, to, tokenId);
+    function safeTransferAndRecordOwner(address to, uint256 tokenId, string memory ownerListInput) public {
+      safeTransferFrom(msg.sender, to, tokenId);
       setListOfOwners(ownerListInput);
       _numOfOwners++;
     }

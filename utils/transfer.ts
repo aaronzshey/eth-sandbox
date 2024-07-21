@@ -1,4 +1,4 @@
-import { refreshOwnershipIPFS, getPreviousOwner } from "./getOwnershipIPFS";
+import { refreshOwnershipIPFS } from "./getOwnershipIPFS";
 
 import { Contract } from "ethers";
 
@@ -14,8 +14,7 @@ function safeTransferAndRecordOwner(address from, address to, uint256 tokenId, s
 export default async function transfer(nft: Contract, address: string) {
   //right now the token id is hardcoded at 0.  future impl will allow it as a param
 
-  nft.safeTransferAndRecordOwner(
-    await getPreviousOwner(nft),
+  await nft.safeTransferAndRecordOwner(
     address,
     0,
     await refreshOwnershipIPFS(await nft.getListOfOwners(), address)

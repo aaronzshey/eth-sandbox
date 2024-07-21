@@ -23,7 +23,7 @@ export async function getPreviousOwner(nft: Contract): Promise<string> {
 
   const ownersJSON: ownersJSON = await fetchOwners.json();
 
-  return ownersJSON.owners[prevOwnerIndex - 1];
+  return ownersJSON.owners[Number(prevOwnerIndex - BigInt(1))];
 }
 
 export async function initiateOwnership(firstOwner: string): Promise<string> {
