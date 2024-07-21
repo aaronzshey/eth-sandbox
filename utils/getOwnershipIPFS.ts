@@ -7,16 +7,23 @@ type ownersJSON = {
   owners: string[];
 };
 
+export async function readIPFSHash(hash: string) {
+  const data: Response = await fetch(
+    `${process.env.PINATA_GATEWAY}${hash}`
+  );
+
+  return data.json();
+}
+
 export async function getPreviousOwner(nft: Contract): Promise<string> {
-  const numOfOwners = await nft.getNumOfOwners();
-  const previousOwnerIndex = numOfOwners == 0 ? 0 : numOfOwners - 1;
+  const prevOwnerIndex = await nft.getNumOfOwners();
   const fetchOwners: Response = await fetch(
     `${process.env.PINATA_GATEWAY}${await nft.getListOfOwners()}`
   );
 
   const ownersJSON: ownersJSON = await fetchOwners.json();
 
-  return ownersJSON.owners[previousOwnerIndex];
+  return ownersJSON.owners[prevOwnerIndex - 1];
 }
 
 export async function initiateOwnership(firstOwner: string): Promise<string> {
