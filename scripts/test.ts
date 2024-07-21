@@ -9,7 +9,7 @@ import { Contract } from "ethers";
 import deployContract from "../utils/deploy";
 import mintNFT from "../utils/mint";
 import transfer from "../utils/transfer";
-import { readIPFSHash, refreshOwnershipIPFS } from "../utils/getOwnershipIPFS"
+import { readIPFSHash } from "../utils/getOwnershipIPFS"
 
 const to = "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199";
 const toAgain = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
@@ -27,10 +27,8 @@ async function main() {
   await transfer(nft, to);
 
   console.log("transferring again...");
-  const newImpersonatedSigner = await hardhat.ethers.getImpersonatedSigner(to);
-
-  newImpersonatedSigner.sendTransaction(await transfer(nft, toAgain));
-
+  await nft.setApprovalForAll(myAddress, true);
+  await transfer(nft, toAgain);
   console.log(await nft.getListOfOwners());
 
 
