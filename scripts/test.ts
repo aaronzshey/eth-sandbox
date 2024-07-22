@@ -9,7 +9,7 @@ import { Contract } from "ethers";
 import deployContract from "../utils/deploy";
 import mintNFT from "../utils/mint";
 import transfer from "../utils/transfer";
-import { readIPFSHash } from "../utils/getOwnershipIPFS"
+import { readIPFSHash, getPreviousOwner } from "../utils/getOwnershipIPFS"
 
 const to = "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199";
 const toAgain = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
@@ -26,8 +26,11 @@ async function main() {
   console.log("transferring...");
   await transfer(nft, to);
 
+  //console.log(await getPreviousOwner(nft))
+
+
   console.log("transferring again...");
-  await nft.setApprovalForAll(myAddress, true);
+
   await transfer(nft, toAgain);
   console.log(await nft.getListOfOwners());
 
