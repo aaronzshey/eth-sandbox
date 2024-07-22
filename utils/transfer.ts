@@ -19,6 +19,7 @@ export default async function transfer(nft: Contract, to: string) {
   const oldIPFSData = await nft.getListOfOwners();
   const newIPFSData = await refreshOwnershipIPFS(oldIPFSData, to);
   //right now the token id is hardcoded at 0.  future impl will allow it as a param
+  //@ts-ignore
   await nft.connect(impersonatedSigner).safeTransferAndRecordOwner(
     previousOwner,
     to,
